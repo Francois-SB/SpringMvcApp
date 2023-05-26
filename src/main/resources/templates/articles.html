@@ -1,5 +1,7 @@
 <!DOCTYPE  html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+	layout:decorate="layout">
 <head>
 <meta charset="ISO-8859-1">
 <title>Spring App</title>
@@ -7,46 +9,50 @@
 	th:href="@{css/bootstrap.min.css}">
 </head>
 <body>
-	<div class="container">
-		<div class="panel panel-primary">
-			<div class="panel-heading">Liste des articles</div>
-			<div class=panel-body>
-			<form th:action="@{/index}" method="get">
-			<label>search</label>
-			<input type="text" name="keyword" th:value="${keyword}">
-			<button type="submit" class = "btn btn-primary">submit</button>
-			</form>
-				<table class="table">
+	<div layout:fragment="content">
 
-					<tr>
-						<th>Id</th>
-						<th>Description</th>
-						<th>price</th>
-					</tr>
-					<tr th:each="a:${listArticle}">
-						<td th:text="${a.id}"></td>
-						<td th:text="${a.description}"></td>
-						<td th:text="${a.price}"></td>
-						<td>
-							<a th:href="@{/delete(id=${a.id} , page=${currentPage}, keyword=${keyword})}">delete</a>
-						</td><!-- pour garder le meme contaxte ou page apres une supperssion -->
-					</tr>
+		<div class="container">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Liste des articles</div>
+				<div class=panel-body>
+					<form th:action="@{/index}" method="get">
+						<label>search</label> <input type="text" name="keyword"
+							th:value="${keyword}">
+						<button type="submit" class="btn btn-primary">submit</button>
+					</form>
+					<table class="table">
 
-				</table>
+						<tr>
+							<th>Id</th>
+							<th>Description</th>
+							<th>price</th>
+						</tr>
+						<tr th:each="a:${listArticle}">
+							<td th:text="${a.id}"></td>
+							<td th:text="${a.description}"></td>
+							<td th:text="${a.price}"></td>
+							<td><a
+								th:href="@{/delete(id=${a.id} , page=${currentPage}, keyword=${keyword})}">delete</a>
+							</td>
+							<!-- pour garder le meme contaxte ou page apres une supperssion -->
+						</tr>
 
-			<ul class="nav nav-pills">
+					</table>
 
-				<li th:class="${currentPage==status.index}?'active':''"
-					th:each="page,status:${pages}"><a
-					th:href="@{/index(page=${status.index},keyword=${keyword})}" th:text="${status.index}"></a></li>
-			</ul>
+					<ul class="nav nav-pills">
+
+						<li th:class="${currentPage==status.index}?'active':''"
+							th:each="page,status:${pages}"><a
+							th:href="@{/index(page=${status.index},keyword=${keyword})}"
+							th:text="${status.index}"></a></li>
+					</ul>
 
 
+
+				</div>
 
 			</div>
-
 		</div>
 	</div>
-
 </body>
 </html>
