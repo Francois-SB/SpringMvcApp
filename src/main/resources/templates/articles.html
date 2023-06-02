@@ -1,7 +1,7 @@
 <!DOCTYPE  html>
 <html xmlns:th="http://thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
-	layout:decorate="layout">
+	layout:decorate="~{layout}">
 <head>
 <meta charset="ISO-8859-1">
 <title>Spring App</title>
@@ -10,49 +10,67 @@
 </head>
 <body>
 	<div layout:fragment="content">
+		<!-- 	categories buttons -->
+		<div class="container"><!-- TODO -->
+			<form th:action="@{/index}" method="get">
+				<ul th:each="c:${listCategories}">
+					<li><button type="submit" class="btn btn-primary"
+							th:text="${c.name}" th:value="${categoryId}"></button></li>
+				</ul>
+			</form>
+			<!-- 			<ul th:each="c:${listCategories}"> -->
+			<li th:each="c:${listCategories}"><a
+				th:href="@{/index(page=${page},keyword=${keyword},categoryId=${c.id})}"
+				th:text="${c.name}"></a></li>
+			<!-- 		</ul></div> -->
+			<!-- 		display articles -->
+			<div class="container">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Liste des articles</div>
+					<div class=panel-body>
+						<form th:action="@{/index}" method="get">
+							<label>search</label> <input type="text" name="keyword"
+								th:value="${keyword}">
+							<button type="submit" class="btn btn-primary">submit</button>
+						</form>
 
-		<div class="container">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Liste des articles</div>
-				<div class=panel-body>
-					<form th:action="@{/index}" method="get">
-						<label>search</label> <input type="text" name="keyword"
-							th:value="${keyword}">
-						<button type="submit" class="btn btn-primary">submit</button>
-					</form>
-					<table class="table">
+						<table class="table">
 
-						<tr>
-							<th>Id</th>
-							<th>Description</th>
-							<th>price</th>
-						</tr>
-						<tr th:each="a:${listArticle}">
-							<td th:text="${a.id}"></td>
-							<td th:text="${a.description}"></td>
-							<td th:text="${a.price}"></td>
-							<td><a
-								th:href="@{/delete(id=${a.id} , page=${currentPage}, keyword=${keyword})}">delete</a>
-							</td>
-							<!-- pour garder le meme contaxte ou page apres une supperssion -->
-						</tr>
+							<tr>
+								<th>Id</th>
+								<th>Marque</th>
+								<th>Description</th>
+								<th>prix</th>
+							</tr>
+							<tr th:each="a:${listArticle}">
+								<td th:text="${a.id}"></td>
+								<td th:text="${a.brand}"></td>
+								<td th:text="${a.description}"></td>
+								<td th:text="${a.price}"></td>
+								<td><a href="#">Add/Cart</a></td>
+								<td><a
+									th:href="@{/delete(id=${a.id} , page=${currentPage}, keyword=${keyword}, catId=${catId})}">delete</a>
+								</td>
+								<td><a href="#">Edit</a></td>
+								<!-- pour garder le meme contaxte ou page apres une supperssion -->
+							</tr>
 
-					</table>
+						</table>
 
-					<ul class="nav nav-pills">
+						<ul class="nav nav-pills">
 
-						<li th:class="${currentPage==status.index}?'active':''"
-							th:each="page,status:${pages}"><a
-							th:href="@{/index(page=${status.index},keyword=${keyword})}"
-							th:text="${status.index}"></a></li>
-					</ul>
+							<li th:class="${currentPage==status.index}?'active':''"
+								th:each="page,status:${pages}"><a
+								th:href="@{/index(page=${status.index},keyword=${keyword},catId=${catId})}"
+								th:text="${status.index}"></a></li>
+						</ul>
 
 
+
+					</div>
 
 				</div>
-
 			</div>
 		</div>
-	</div>
 </body>
 </html>

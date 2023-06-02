@@ -13,13 +13,12 @@ xmlns:layout = "http://www.ultraq.net.nz/thymleaf/layout">
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 	<div class="navbar-header">
-		<a class="navbar-brand" href ="#">monsite demo</a>
+		<a class="navbar-brand" th:href="@{/index}">Ma boutique en ligne</a>
 	</div>
 	<ul class="nav navbar-nav">
-		<li class="active"><a href="@{/index}">accueil</a></li>
-		<li><a href="@{/article}">Article</a></li>
-		<li><a href="#">Page 2</a></li>
-		<li><a href="#">Page 3</a></li>
+		<li class="active"><a th:href="@{/index}">accueil</a></li>
+		<li><a th:href="@{/article}">Article</a></li>
+		<li><a href="#">Voir Panier</a></li>
 	</ul>
 	</div>
 	</nav>

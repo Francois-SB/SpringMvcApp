@@ -14,7 +14,8 @@ import fr.fms.entities.Article;
 
 public interface ArticleRepository extends JpaRepository<Article,Long>{
 	Page<Article> findByDescriptionContains(String description, Pageable pageable);
-
+	Page<Article> findByCategoryId(Long categoryId, Pageable pageable);
+	Page<Article> findByCategoryIdAndDescriptionContains(Long categoryId,String description, Pageable pageable);
 	//1.5 bis TODO error Executing an update/delete query => may not be possible
 //	@Modifying(clearAutomatically = true)
 //	@Query("UPDATE Article A SET A.description = :#{#x.description}, A.brand = :#{#x.brand}, A.price = :#{#x.price} WHERE A.id = :#{#x.id}")
