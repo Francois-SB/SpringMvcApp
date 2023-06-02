@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -103,16 +104,18 @@ else {//sans cat, avec recherche
 		return "article";
 	}
 	
-	@PostMapping("/save")//@ModelAttribute
-	public String save(@Valid  Article article, BindingResult bindingResult,
-			@RequestParam(name = "categoryId" , defaultValue = "0") Long categoryId) {
-
-		if(bindingResult.hasErrors() || categoryId == null) return "article";
-		
+	@PostMapping("/save")//
+	public String save(@Valid  @ModelAttribute Article article, BindingResult bindingResult,
+			@RequestParam(name = "categoryId")Long categoryId) {//@PathVariable
+		System.out.println("categoryId : "+categoryId);
+//		if(bindingResult.hasErrors() || categoryId == null) return "article";
+//		
 		Category newCategory = categoryRepository.findById(categoryId).get();
+		System.out.println("catNAMEEEEEEEE :  "+newCategory.getName());
+		//TODO set cat pb
 		article.setCategory(newCategory);
-		System.out.println("art before save modif : "+article);
-		articleRepository.save(article);
+//		System.out.println("art before save modif : "+article);
+//		articleRepository.save(article);
 		System.out.println("saved art : "+article);
 		return "article";
 	}
