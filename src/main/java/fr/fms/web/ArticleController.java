@@ -1,6 +1,7 @@
 package fr.fms.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -87,6 +88,15 @@ else {//sans cat, avec recherche
 	@GetMapping("/article")
 	public String article(Model model) {
 		model.addAttribute("article", new Article());
+		return "article";
+	}
+	//TODO
+	@GetMapping("/update")
+	public String article(Model model, Long id) {
+		
+		Article updtArticle = articleRepository.findById(id).get();
+		model.addAttribute("article", updtArticle);
+		
 		return "article";
 	}
 	

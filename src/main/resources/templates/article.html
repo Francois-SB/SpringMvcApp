@@ -14,10 +14,11 @@
 	<div layout:fragment="content">
 		<div class="col-md-4 col-xs-8">
 			<div class="panel panel-primary">
-				<div class="panel-heading">Saisir nouvel article</div>
+				<div class="panel-heading" th:text="${id != 0? 'modif article':'saisir article'}">Saisir nouvel article</div>
 					<div class="panel-body">
 						<form th:action="@{/save}" method = "post">
 							<div class="form-group">
+<!-- 							si un article est placé en param je le charge -->
 								<label class="control-label">Description</label>
 								<input class="form-control" type="text" name="description" th:value="${article.description}">
 								<span th:errors="${article.description}"></span>

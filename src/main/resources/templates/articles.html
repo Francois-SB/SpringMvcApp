@@ -51,7 +51,7 @@
 								<td><a
 									th:href="@{/delete(id=${a.id} , page=${currentPage}, keyword=${keyword}, catId=${catId})}">delete</a>
 								</td>
-								<td><a href="#">Edit</a></td>
+								<td><a th:href="@{/update(id=${a.id})}">Edit</a></td>
 								<!-- pour garder le meme contaxte ou page apres une supperssion -->
 							</tr>
 
