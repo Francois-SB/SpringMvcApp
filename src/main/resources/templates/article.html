@@ -40,8 +40,7 @@
 						</div>
 						<div class="form-group">
 							<label for="pet-select">Choisir une categorie</label> 
-							<select name="cats"
-								id="cat-select">
+							<select th:name="categoryId" th:value="${categoryId}">
 								<option value="">--Please choose an option--</option>
 								<option th:each="dropdownItem : ${listCategories}" 
 								th:value="${dropdownItem.id}"

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,8 +40,7 @@ public class ArticleController {
 		model.addAttribute("listCategories",categories);
 		model.addAttribute("keyword",kw);
 		model.addAttribute("categoryId",catId);
-//		categories.stream().forEach(System.out::println);
-		//TODO
+
 		System.out.println("kw : "+kw);
 		System.out.println("cat ID : "+catId);
 		Page<Article> articles = null;//new Page();
@@ -103,10 +103,17 @@ else {//sans cat, avec recherche
 		return "article";
 	}
 	
-	@PostMapping("/save")
-	public String save(@Valid Article article, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) return "article";
+	@PostMapping("/save")//@ModelAttribute
+	public String save(@Valid  Article article, BindingResult bindingResult,
+			@RequestParam(name = "categoryId" , defaultValue = "0") Long categoryId) {
+
+		if(bindingResult.hasErrors() || categoryId == null) return "article";
+		
+		Category newCategory = categoryRepository.findById(categoryId).get();
+		article.setCategory(newCategory);
+		System.out.println("art before save modif : "+article);
 		articleRepository.save(article);
+		System.out.println("saved art : "+article);
 		return "article";
 	}
 	
