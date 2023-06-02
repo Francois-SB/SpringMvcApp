@@ -14,26 +14,47 @@
 	<div layout:fragment="content">
 		<div class="col-md-4 col-xs-8">
 			<div class="panel panel-primary">
-				<div class="panel-heading" th:text="${id != 0? 'modif article':'saisir article'}">Saisir nouvel article</div>
-					<div class="panel-body">
-						<form th:action="@{/save}" method = "post">
-							<div class="form-group">
-<!-- 							si un article est placé en param je le charge -->
-								<label class="control-label">Description</label>
-								<input class="form-control" type="text" name="description" th:value="${article.description}">
-								<span th:errors="${article.description}"></span>
-							</div>
-							<div class="form-group">
-								<label class="control-label">Price</label>
-								<input class="form-control" type="text" name="price" th:value="${article.price}">
-							<span th:errors="${article.price}"></span>
-							</div>
-							
-							<button class="btn btn-primary" type="submit">Save</button>
+				<div class="panel-heading"
+					th:text="${id != 0? 'modif article':'saisir article'}">Saisir
+					nouvel article</div>
+				<div class="panel-body">
+					<form th:action="@{/save}" method="post">
+						<div class="form-group">
+							<!-- 							si un article est placé en param je le charge -->
+							<label class="control-label">Description</label> <input
+								class="form-control" type="text" name="description"
+								th:value="${article.description}"> <span
+								th:errors="${article.description}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Brand</label> <input
+								class="form-control" type="text" name="brand"
+								th:value="${article.brand}">
 
-						</form>
-					</div>
-				
+						</div>
+						<div class="form-group">
+							<label class="control-label">Price</label> <input
+								class="form-control" type="text" name="price"
+								th:value="${article.price}"> <span
+								th:errors="${article.price}"></span>
+						</div>
+						<div class="form-group">
+							<label for="pet-select">Choisir une categorie</label> 
+							<select name="cats"
+								id="cat-select">
+								<option value="">--Please choose an option--</option>
+								<option th:each="dropdownItem : ${listCategories}" 
+								th:value="${dropdownItem.id}"
+								th:text="${dropdownItem.name}"></option>
+
+							</select>
+						</div>
+
+						<button class="btn btn-primary" type="submit">Save</button>
+
+					</form>
+				</div>
+
 			</div>
 		</div>
 	</div>

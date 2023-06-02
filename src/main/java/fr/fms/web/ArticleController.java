@@ -96,7 +96,10 @@ else {//sans cat, avec recherche
 		
 		Article updtArticle = articleRepository.findById(id).get();
 		model.addAttribute("article", updtArticle);
-		
+		List<Category> listCategories = categoryRepository.findAll();
+		model.addAttribute("listCategories", listCategories);
+
+	
 		return "article";
 	}
 	
